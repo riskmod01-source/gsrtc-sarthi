@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';import 'dart:async';import 'dart:convert';import 'package:firebase_core/firebase_core.dart';import 'package:firebase_auth/firebase_auth.dart';import 'package:google_sign_in/google_sign_in.dart';import 'package:cloud_firestore/cloud_firestore.dart';import 'package:shared_preferences/shared_preferences.dart';import 'package:google_mobile_ads/google_mobile_ads.dart';import 'package:razorpay_flutter/razorpay_flutter.dart';import 'package:url_launcher/url_launcher.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -433,7 +432,7 @@ hintText: 'દા.ત. Thakor XYZ',
 labelText: 'તમારું પૂરું નામ',
 border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
 ),
-validator: (v) => (v == null || v.trim().isEmpty) ? 'કૃપા કરીને નામ દાખલ કરો' : null,
+validator: (v) => (v == null || v.trim().isEmpty) ? 'કૃπα કરીને નામ દાખલ કરો' : null,
 ),
 const SizedBox(height: 20),
 ElevatedButton(
@@ -775,7 +774,7 @@ qList = List.generate(
 50,
 (i) => CompleteQuestion(
 question: '${widget.role} મોડેલ પ્રશ્ન ${i + 1}: GSRTC સત્તાવાર નિયમ?',
-options: ['સાચો વિકલ્પ', 'वિકલ્પ B', 'વિકલ્પ C', 'વિકલ્પ D'],
+options: ['સાચો વિકલ્પ', 'વિકલ્પ B', 'વિકલ્પ C', 'વિકલ્પ D'],
 correctIndex: 0,
 ),
 );
@@ -810,7 +809,7 @@ if (docs.isEmpty) {
 return Container(
 padding: const EdgeInsets.all(16),
 decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(12)),
-child: const Center(child: Text('અત્યારે કોઈamp; સ્પેશિયલ ટેસ્ટ સક્રિય નથી.', style: TextStyle(color: Colors.grey))),
+child: const Center(child: Text('અત્યારે કોઈ સ્પેશિયલ ટેસ્ટ સક્રિય નથી.', style: TextStyle(color: Colors.grey))),
 );
 }
 final specialTests = docs.map((doc) => SpecialExamModel.fromMap(doc.data() as Map<String, dynamic>, doc.id)).toList();
@@ -990,6 +989,11 @@ Widget build(BuildContext context) {
 final currentQ = widget.questions[currentIndex];
 final themeColor = widget.role == 'કંડક્ટર' ? const Color(0xFF1976D2) : const Color(0xFF00796B);
 return Scaffold(
+appBar: AppBar(
+title: Text(widget.testTitle, style: const TextStyle(fontSize: 16)),
+backgroundColor: themeColor,
+foregroundColor: Colors.white,
+),
 body: SingleChildScrollView(
 padding: const EdgeInsets.all(16),
 child: Column(
@@ -1102,7 +1106,7 @@ late TabController _tabController;
 bool _isUploading = false;
 String _bulkTargetRole = 'કંડક્ટર';
 String _bulkExamType = 'આખો ભેગો મોક ટેસ્ટ';
-dynamic _bulkSelectedSubject = '૧. કંડક્ટર ફરજો & ટિકિટિંગ';
+String _bulkSelectedSubject = '૧. કંડક્ટર ફરજો & ટિકિટિંગ';
 final _generalBulkJsonCtrl = TextEditingController();
 String _specialTargetRole = 'કંડક્ટર';
 final _specialTitleCtrl = TextEditingController();
@@ -1199,7 +1203,7 @@ final price = int.tryParse(_specialPriceCtrl.text.trim()) ?? 49;
 final duration = int.tryParse(_specialDurationCtrl.text.trim()) ?? 60;
 final jsonText = _specialBulkJsonCtrl.text.trim();
 if (title.isEmpty) {
-ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('કૃપા કરીને સ્પેશિયલ ટેસ્ટનું નામ લખો')));
+ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('કૃપા કરીનેamp; સ્પેશિયલ ટેસ્ટનું નામ લખો')));
 return;
 }
 setState(() => _isUploading = true);
@@ -1292,7 +1296,7 @@ DropdownMenuItem(value: 'ડ્રાઈવર', child: Text('ડ્રાઈવ
 onChanged: (val) {
 setState(() {
 _bulkTargetRole = val!;
-_bulkSelectedSubject = val == 'કંડક્ટર' ? _conductorSubjects : _driverSubjects;
+_bulkSelectedSubject = val == 'કંડક્ટર' ? _conductorSubjects[0] : _driverSubjects[0];
 });
 },
 ),
@@ -1309,12 +1313,7 @@ onChanged: (val) => setState(() => _bulkExamType = val!),
 const SizedBox(height: 12),
 if (_bulkExamType == 'વિષયવાર ટેસ્ટ') ...[
 DropdownButtonFormField(
-value: (rawList) {
-if (_bulkSelectedSubject is List) {
-return _bulkSelectedSubject[0] as String;
-}
-return _bulkSelectedSubject.toString();
-}(),
+value: currentSubjectList.contains(_bulkSelectedSubject) ? _bulkSelectedSubject : currentSubjectList[0],
 decoration: InputDecoration(labelText: 'વિષય પસંદ કરો', border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
 items: currentSubjectList.map((s) => DropdownMenuItem(value: s, child: Text(s, style: const TextStyle(fontSize: 13)))).toList(),
 onChanged: (val) => setState(() => _bulkSelectedSubject = val!),
@@ -1599,9 +1598,11 @@ label: const Text('ખોલો', style: TextStyle(fontSize: 12)),
 class BookmarksScreen extends StatefulWidget {
 const BookmarksScreen({super.key});
 @override
-State createState() => _BookmarksScreenState();
+Widget build(BuildContext context) {
+return const Scaffold();
 }
-class _BookmarksScreenState extends State {
+}
+class BookmarksScreenState extends State {
 List<Map<String, dynamic>> _bookmarks = [];
 bool _isLoading = true;
 @override
@@ -1719,7 +1720,3 @@ raw.add(item);
 await prefs.setStringList('bookmarks', raw);
 }
 }
-
-
-
-
