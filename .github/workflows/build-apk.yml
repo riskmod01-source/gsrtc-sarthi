@@ -25,6 +25,13 @@ jobs:
           flutter-version: '3.22.2'
           channel: 'stable'
 
+      - name: Repair and Force Upgrade Gradle
+        run: |
+          cd ..
+          flutter create --org com.gsrtc --project-name gsrtc_sarthi temp_app
+          cp -r temp_app/android $GITHUB_WORKSPACE/
+          cd $GITHUB_WORKSPACE
+
       - name: Get dependencies
         run: flutter pub get
 
