@@ -22,19 +22,8 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.24.0"
-          channel: stable
-
-      - name: Create Flutter project structure
-        run: |
-          flutter create --org com.gsrtc --project-name gsrtc_sarthi temp_project
-          cp -r temp_project/android/. android/
-          cp temp_project/android/app/src/main/res -r android/app/src/main/
-          rm -rf temp_project
-
-      - name: Copy our files back
-        run: |
-          cp android/app/google-services.json android/app/google-services.json || true
+          flutter-version: '3.24.0'
+          channel: 'stable'
 
       - name: Get dependencies
         run: flutter pub get
