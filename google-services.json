@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "527581355609",
+    "project_id": "gsrtc-sarthi-67990",
+    "storage_bucket": "gsrtc-sarthi-67990.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:527581355609:android:16af7c67138b84e5001b48",
+        "android_client_info": {
+          "package_name": "com.gsrtc.sarthi"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCEFg6hUcJZTIFNkTIg_1WHU4cV7BbFB0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
